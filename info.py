@@ -26,7 +26,7 @@ BOT_TOKEN = environ.get('BOT_TOKEN', "")
 CACHE_TIME = int(environ.get('CACHE_TIME', 1800))
 PICS = (environ.get('PICS', 'https://telegra.ph/file/220c5db83e35fc46cee4f.jpg')).split() #SAMPLE PIC
 NOR_IMG = environ.get("NOR_IMG", "https://graph.org/file/b69af2db776e4e85d21ec.jpg")
-MELCOW_VID = environ.get("MELCOW_VID", "https://t.me/smttools")
+MELCOW_VID = environ.get("MELCOW_VID", "https://t.me/englishchatroomsociety")
 SPELL_IMG = environ.get("SPELL_IMG", "https://te.legra.ph/file/15c1ad448dfe472a5cbb8.jpg")
 
 # Admins, Channels & Users
@@ -71,9 +71,9 @@ CLONE_DATABASE_URI = environ.get('CLONE_DATABASE_URI', "mongodb+srv://botmaking8
 PUBLIC_FILE_CHANNEL = environ.get('PUBLIC_FILE_CHANNEL', 'supreethbot05') # Public Channel Username Without @ or without https://t.me/ and Bot Is Admin With Full Right.
 
 # Links
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/smttools')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/smttools')
-TUTORIAL = environ.get('TUTORIAL', 'https://t.me/smttools')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/englishchatroomsociety')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/englishchatroomsociety')
+TUTORIAL = environ.get('TUTORIAL', 'https://t.me/englishchatroomsociety')
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'supreeth1t8') # Support Chat Link Without https:// or @
 
 # True Or False
