@@ -1,0 +1,140 @@
+.hero{
+
+    position:relative;
+
+    width:100%;
+
+    height:85vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:80px;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        rgba(11,15,25,.30),
+        rgba(11,15,25,.95)
+    ),
+    url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=2000&q=80");
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+.hero-content{
+
+    max-width:650px;
+
+    z-index:10;
+
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    background:#8B5CF6;
+
+    color:white;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+
+    margin-bottom:20px;
+
+}
+
+.hero-title{
+
+    font-size:5rem;
+
+    font-weight:700;
+
+    line-height:1;
+
+    margin-bottom:20px;
+
+}
+
+.hero-description{
+
+    font-size:1.15rem;
+
+    color:#d4d4d4;
+
+    margin-bottom:25px;
+
+}
+
+.hero-meta{
+
+    display:flex;
+
+    gap:14px;
+
+    color:#b8b8b8;
+
+    margin-bottom:35px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.watch-btn{
+
+    background:#8B5CF6;
+
+    color:white;
+
+    border:none;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:1rem;
+
+    transition:.3s;
+
+}
+
+.watch-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.info-btn{
+
+    border:1px solid rgba(255,255,255,.4);
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    padding:16px 34px;
+
+    border-radius:50px;
+
+    backdrop-filter:blur(10px);
+
+    cursor:pointer;
+
+}
