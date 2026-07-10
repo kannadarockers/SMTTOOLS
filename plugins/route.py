@@ -3,6 +3,7 @@
 # Ask Doubt on telegram @KingVJ01
 
 import re, math, logging, secrets, mimetypes, time
+import traceback
 from info import *
 from aiohttp import web
 from aiohttp.http_exceptions import BadStatusLine
@@ -37,9 +38,7 @@ async def stream_handler(request: web.Request):
         raise web.HTTPNotFound(text=e.message)
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
-    import traceback
-
-except Exception as e:
+    except Exception as e:
     traceback.print_exc()
     logging.exception("Streaming failed")
     raise web.HTTPInternalServerError(text=str(e))
@@ -63,9 +62,7 @@ async def stream_handler(request: web.Request):
         raise web.HTTPNotFound(text=e.message)
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
-    import traceback
-
-except Exception as e:
+    except Exception as e:
     traceback.print_exc()
     logging.exception("Streaming failed")
     raise web.HTTPInternalServerError(text=str(e))
