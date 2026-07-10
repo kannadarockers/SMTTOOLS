@@ -1,9 +1,4 @@
-# Don't Remove Credit @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot @Tech_VJ
-# Ask Doubt on telegram @KingVJ01
-
 import re, math, logging, secrets, mimetypes, time
-import traceback
 from info import *
 from aiohttp import web
 from aiohttp.http_exceptions import BadStatusLine
@@ -38,10 +33,10 @@ async def stream_handler(request: web.Request):
         raise web.HTTPNotFound(text=e.message)
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
-except Exception as e:
-    traceback.print_exc()
-    logging.exception("Streaming failed")
-    raise web.HTTPInternalServerError(text=str(e))
+    except Exception:
+        logging.exception("[STREAM] Unexpected error")
+        raise
+
 @routes.get(r"/{path:\S+}", allow_head=True)
 async def stream_handler(request: web.Request):
     try:
@@ -53,7 +48,6 @@ async def stream_handler(request: web.Request):
         else:
             id = int(re.search(r"(\d+)(?:\/\S+)?", path).group(1))
             secure_hash = request.rel_url.query.get("hash")
-        logging.info(f"Streaming request received: id={id}, hash={secure_hash}")
         return await media_streamer(request, id, secure_hash)
     except InvalidHash as e:
         raise web.HTTPForbidden(text=e.message)
@@ -61,10 +55,9 @@ async def stream_handler(request: web.Request):
         raise web.HTTPNotFound(text=e.message)
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
-except Exception as e:
-    traceback.print_exc()
-    logging.exception("Streaming failed")
-    raise web.HTTPInternalServerError(text=str(e))
+    except Exception:
+        logging.exception("[STREAM] Unexpected error")
+        raise
 
 class_cache = {}
 
@@ -84,10 +77,18 @@ async def media_streamer(request: web.Request, id: int, secure_hash: str):
         logging.debug(f"Creating new ByteStreamer object for client {index}")
         tg_connect = ByteStreamer(faster_client)
         class_cache[faster_client] = tg_connect
-    logging.debug("before calling get_file_properties")
-    file_id = await tg_connect.get_file_properties(id)
-    logging.debug("after calling get_file_properties")
+        logging.info(f"[STREAM] Before get_file_properties: id={id}")
+
+        file_id = await tg_connect.get_file_properties(id)
+
+        logging.info(f"[STREAM] Got file properties: {file_id.file_name}")
+
+        logging.debug("after calling get_file_properties")
     
+        logging.info(
+        f"[STREAM] unique_id={file_id.unique_id[:6]} secure_hash={secure_hash}"
+)
+
     if file_id.unique_id[:6] != secure_hash:
         logging.debug(f"Invalid hash for message with ID {id}")
         raise InvalidHash
@@ -118,6 +119,8 @@ async def media_streamer(request: web.Request, id: int, secure_hash: str):
 
     req_length = until_bytes - from_bytes + 1
     part_count = math.ceil(until_bytes / chunk_size) - math.floor(offset / chunk_size)
+
+    logging.info("[STREAM] Starting Telegram stream...")
     body = tg_connect.yield_file(
         file_id, index, offset, first_part_cut, last_part_cut, part_count, chunk_size
     )
