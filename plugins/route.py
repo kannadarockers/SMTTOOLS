@@ -38,11 +38,10 @@ async def stream_handler(request: web.Request):
         raise web.HTTPNotFound(text=e.message)
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
-    except Exception as e:
+except Exception as e:
     traceback.print_exc()
     logging.exception("Streaming failed")
     raise web.HTTPInternalServerError(text=str(e))
-
 @routes.get(r"/{path:\S+}", allow_head=True)
 async def stream_handler(request: web.Request):
     try:
@@ -62,7 +61,7 @@ async def stream_handler(request: web.Request):
         raise web.HTTPNotFound(text=e.message)
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
-    except Exception as e:
+except Exception as e:
     traceback.print_exc()
     logging.exception("Streaming failed")
     raise web.HTTPInternalServerError(text=str(e))
