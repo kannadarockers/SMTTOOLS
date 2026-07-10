@@ -71,22 +71,22 @@ async def media_streamer(request: web.Request, id: int, secure_hash: str):
         logging.info(f"Client {index} is now serving {request.remote}")
 
     if faster_client in class_cache:
-    tg_connect = class_cache[faster_client]
-    logging.debug(f"Using cached ByteStreamer object for client {index}")
-else:
-    logging.debug(f"Creating new ByteStreamer object for client {index}")
-    tg_connect = ByteStreamer(faster_client)
-    class_cache[faster_client] = tg_connect
+        tg_connect = class_cache[faster_client]
+        logging.debug(f"Using cached ByteStreamer object for client {index}")
+    else:
+        logging.debug(f"Creating new ByteStreamer object for client {index}")
+        tg_connect = ByteStreamer(faster_client)
+        class_cache[faster_client] = tg_connect
 
-logging.info(f"[STREAM] Before get_file_properties: id={id}")
+    logging.info(f"[STREAM] Before get_file_properties: id={id}")
 
-file_id = await tg_connect.get_file_properties(id)
+    file_id = await tg_connect.get_file_properties(id)
 
-logging.info(f"[STREAM] Got file properties: {file_id.file_name}")
+    logging.info(f"[STREAM] Got file properties: {file_id.file_name}")
 
-logging.info(
-    f"[STREAM] unique_id={file_id.unique_id[:6]} secure_hash={secure_hash}"
-)
+    logging.info(
+        f"[STREAM] unique_id={file_id.unique_id[:6]} secure_hash={secure_hash}"
+    )
 
     if file_id.unique_id[:6] != secure_hash:
         logging.debug(f"Invalid hash for message with ID {id}")
