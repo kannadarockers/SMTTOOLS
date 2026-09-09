@@ -36,6 +36,6 @@ Pillow==10.3.0
 psutil==5.9.8
 dnspython==2.6.1
 ffmpeg-python>=0.2.0
-openai>=1.30.0
+openai==1.30.0
 jinja2
 git+https://github.com/Joelkb/cinemagoer
